@@ -9,7 +9,8 @@ const Person = function (firstName, birthYear) {
   //  never creat a method in conctruction function it will be attachted to every obj
   // this.clalcAge = function () {
   //   console.log(2023 - this.birthYear);
-  // };
+  //
+  //   };
 };
 
 const evie = new Person('evie', 2003);
