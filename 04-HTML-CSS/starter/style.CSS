@@ -1,0 +1,45 @@
+/* select all the things*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(157, 165, 239);
+  font-family: Arial;
+  font-size: 11px;
+  padding: 30px;
+}
+h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+p {
+  margin-bottom: 10px;
+}
+
+.first {
+  color: rgb(232, 229, 235);
+}
+#your_name {
+  background-color: rgb(122, 133, 239);
+  border: 1px solid #444;
+  padding: 5px;
+  width: 200px;
+  margin-top: 30px;
+}
+input,
+button {
+  padding: 1px;
+  font-size: 10px;
+}
+a {
+  background-color: rgb(182, 182, 223);
+}
+#your_name h2 {
+  color: rgb(64, 64, 241);
+}
