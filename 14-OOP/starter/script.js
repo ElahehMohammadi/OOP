@@ -402,19 +402,27 @@ jay.introduce();
 jay.calcAge();
 */
 
-//////////// SECTION
+//////////// SECTION emcapsulation
+// 1. Public fields
+// 2. Private fields
+// 3. Public methods
+// 4. Private methods
+// (there is also the static version)
+/*
 class account {
   //public field (instances)
   locale = navigator.language;
 
-  // private field
+  // private field (instances)
   #movments = [];
+  #pin;
 
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
     //protected property
-    this._pin = pin;
+    // this._pin = pin;
+    this.#pin = pin;
     // this._movments = [];
     // this.locale = navigator.language;
 
@@ -426,19 +434,29 @@ class account {
   // public interface
   deposit(val) {
     this.#movments.push(val);
+    return this;
   }
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
-  _approveLoan(val) {
-    return true;
-  }
   requestLoan(val) {
+    // if (this.#approveLoan(val)) {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
     }
+    return this;
+  }
+
+  static helper() {
+    console.log("help");
+  }
+  // private methods
+  // #approveLoan(val) {
+  _approveLoan(val) {
+    return true;
   }
 }
 const acc1 = new account("Jonas", "EUR", 1111);
@@ -448,3 +466,80 @@ acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
 console.log(acc1);
+// console.log(acc1.#approveLoan(100));
+// console.log(acc1.#pin);
+// console.log(acc1.#movments);
+account.helper();
+
+//////////// SECTION chaining
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovment());
+*/
+
+//////////// SECTION Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+
+class car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+class EVCl extends car {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+  accelerate() {
+    this.speed += 20;
+    this.charge--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }`
+    );
+    return this;
+  }
+}
+const rivian = new EVCl("Rivian", 120, 23);
+console.log(rivian);
+// console.log(rivian.#charge);
+rivian
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(50)
+  .accelerate();
+
+console.log(rivian.speedUS);
